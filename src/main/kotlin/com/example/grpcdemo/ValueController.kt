@@ -17,13 +17,13 @@ class ValueController(val valueHandler: ValueHandler){
 
     @RequestMapping(method = [RequestMethod.POST], path = [""])
     @ResponseStatus(HttpStatus.OK)
-    fun hello(@RequestBody request: StoreValueRequest): ValueResponse{
+    fun hello(@RequestBody request: StoreValueRequest): StoreValueResponse{
         return valueHandler.storeValue(request)
     }
 
     @RequestMapping(method = [RequestMethod.GET], path = [""])
     @ResponseStatus(HttpStatus.OK)
-    fun hello(@RequestParam("path") path: String): ValueResponse{
+    fun hello(@RequestParam("path") path: String): GetValueResponse{
         val valueRequest = GetValueRequest.newBuilder().setPath(path).setVersion(1).build()
         return valueHandler.getValue(valueRequest)
     }

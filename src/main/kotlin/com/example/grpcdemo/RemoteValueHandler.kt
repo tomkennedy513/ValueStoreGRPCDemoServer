@@ -17,11 +17,11 @@ class RemoteValueHandler: ValueHandler {
 
     )
 
-    override fun getValue(request: GetValueRequest): ValueResponse {
+    override fun getValue(request: GetValueRequest): GetValueResponse {
         return valueService.getValue(request)
     }
 
-    override fun storeValue(request: StoreValueRequest): ValueResponse {
+    override fun storeValue(request: StoreValueRequest): StoreValueResponse {
         return valueService.storeValue(request)
     }
 

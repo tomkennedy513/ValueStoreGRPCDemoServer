@@ -2,7 +2,9 @@ package com.example.grpcdemo
 
 interface ValueHandler {
 
-    fun getValue(request: GetValueRequest): GetValueResponse
+    fun getValueByPath(request: GetValueByPathRequest): GetValueResponse
+
+    fun getValueByUuid(request: GetValueByUUIDRequest): GetValueResponse
 
     fun storeValue(request: StoreValueRequest): StoreValueResponse
 }

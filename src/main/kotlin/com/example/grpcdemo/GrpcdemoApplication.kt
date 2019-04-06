@@ -6,10 +6,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter
 import org.springframework.http.converter.protobuf.ProtobufJsonFormatHttpMessageConverter
 
-
-
-
-
 @SpringBootApplication
 class GrpcdemoApplication {
     @Bean

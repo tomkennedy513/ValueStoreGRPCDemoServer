@@ -4,6 +4,7 @@ import io.grpc.ManagedChannelBuilder
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
+
 @Profile("remote")
 @Service
 class RemoteValueHandler: ValueHandler {
@@ -17,13 +18,15 @@ class RemoteValueHandler: ValueHandler {
 
     )
 
-    override fun getValue(request: GetValueRequest): GetValueResponse {
-        return valueService.getValue(request)
+    override fun getValueByUuid(request: GetValueByUUIDRequest): GetValueResponse {
+        return valueService.getValueByUUID(request)
+    }
+
+    override fun getValueByPath(request: GetValueByPathRequest): GetValueResponse {
+        return valueService.getValueByPath(request)
     }
 
     override fun storeValue(request: StoreValueRequest): StoreValueResponse {
         return valueService.storeValue(request)
     }
-
-
 }

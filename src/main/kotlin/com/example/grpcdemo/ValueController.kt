@@ -15,24 +15,37 @@ class ValueController(val valueHandler: ValueHandler){
     }
 
     @RequestMapping(method = [RequestMethod.POST], path = [""])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun storeValue(@RequestBody request: SetValueRequest): SetValueResponse{
+        return valueHandler.setValue(request)
+    }
+
+    @RequestMapping(method = [RequestMethod.GET], path = ["/{id}"])
     @ResponseStatus(HttpStatus.OK)
-    fun storeValue(@RequestBody request: StoreValueRequest): StoreValueResponse{
-        return valueHandler.storeValue(request)
+    fun getValueById(@PathVariable("id") id: String): GetValueResponse{
+        val valueRequest = GetValueByIdRequest.newBuilder().setId(id).build()
+        return valueHandler.getValueById(valueRequest)
     }
 
     @RequestMapping(method = [RequestMethod.GET], path = [""])
     @ResponseStatus(HttpStatus.OK)
-    fun getValueByPath(@RequestParam(value = "path", required = true) path: String,
-              @RequestParam(value = "version", required = false, defaultValue = "-1") version: Long): GetValueResponse{
-        val valueRequest = GetValueByPathRequest.newBuilder().setPath(path).setVersion(version).build()
+    fun getValueByPath(@RequestParam(value = "path", required = true) path: String): GetValueResponse{
+        val valueRequest = GetValueByPathRequest.newBuilder().setPath(path).build()
         return valueHandler.getValueByPath(valueRequest)
     }
 
-    @RequestMapping(method = [RequestMethod.GET], path = ["/{uuid}"])
-    @ResponseStatus(HttpStatus.OK)
-    fun getValueByUuid(@PathVariable("uuid") uuid: String): GetValueResponse{
-        val valueRequest = GetValueByUUIDRequest.newBuilder().setUuid(uuid).build()
-        return valueHandler.getValueByUuid(valueRequest)
+    @RequestMapping(method = [RequestMethod.DELETE], path = ["/{id}"])
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun deleteValueById(@PathVariable("id") id: String): DeleteValueResponse{
+        val valueRequest = DeleteValueByIdRequest.newBuilder().setId(id).build()
+        return valueHandler.deleteValueById(valueRequest)
+    }
+
+    @RequestMapping(method = [RequestMethod.DELETE], path = [""])
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    fun deleteValueByPath(@RequestParam(value = "path", required = true) path: String): DeleteValueResponse{
+        val valueRequest = DeleteValueByPathRequest.newBuilder().setPath(path).build()
+        return valueHandler.deleteValueByPath(valueRequest)
     }
 
 }
